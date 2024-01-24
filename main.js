@@ -5,7 +5,7 @@ const app = express();
 const mysql = require("mysql");
 const myconn = mysql.createConnection({
   host: "localhost",
-  database: "people_db",
+  database: "newpeople",
   user: "root",
   password: "",
 });
@@ -28,10 +28,13 @@ app.get("/users", (req, res) => {
       res.send(`A databse Error occured: ${error.message}`);
     } else {
       //   res.send(`A list of all users: ${JSON.stringify(queryResult)} `);
-    //   res.json(queryResult);
-        res.render("user.ejs", { queryResult });
+      //   res.json(queryResult);
+      res.render("user.ejs", { queryResult });
     }
   });
+});
+app.get("/newuser", (req, res) => {
+  res.render("new.ejs");
 });
 app.post("/newuser", (req, res) => {
   // save new user in db

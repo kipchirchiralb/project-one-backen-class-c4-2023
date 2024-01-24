@@ -8,6 +8,13 @@
       span {
         color: brown;
       }
+      .btn {
+        text-decoration: none;
+        color: white;
+        background-color: green;
+        padding: 7px 12px;
+        border-radius: 4px;
+      }
     </style>
   </head>
   <body>
@@ -17,6 +24,8 @@
     <h2><%= user.fullname%> <span> Age: <%=user.age%> </span></h2>
 
     <% }) %>
+
+    <a href="/newuser" class="btn"> + Add New User </a>
   </body>
 </html>
 
