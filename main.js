@@ -5,7 +5,7 @@ const app = express();
 const mysql = require("mysql");
 const myconn = mysql.createConnection({
   host: "localhost",
-  database: "newpeople",
+  database: "people_db",
   user: "root",
   password: "",
 });
@@ -36,7 +36,8 @@ app.get("/users", (req, res) => {
 app.get("/newuser", (req, res) => {
   res.render("new.ejs");
 });
-app.post("/newuser", (req, res) => {
+app.post("/addnewuser", (req, res) => {
+  //recieve data from client
   // save new user in db
   res.redirect("/users");
 });
