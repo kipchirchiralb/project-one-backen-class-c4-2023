@@ -15,14 +15,21 @@
         padding: 7px 12px;
         border-radius: 4px;
       }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      a:hover {
+        background-color: rgba(165, 42, 42, 0.3);
+      }
     </style>
   </head>
   <body>
     <h1>Users List</h1>
     <% queryResult.forEach(user=> { %>
-
-    <h2><%= user.fullname%> <span> Age: <%=user.age%> </span></h2>
-
+    <a href="/users/<%=user.id%>">
+      <h2><%= user.names%> <span> Age: <%=user.age%> </span></h2>
+    </a>
     <% }) %>
 
     <a href="/newuser" class="btn"> + Add New User </a>
