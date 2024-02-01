@@ -43,15 +43,13 @@ app.get("/users", (req, res) => {
 });
 app.get("/users/:id", (req, res) => {
   const userid = Number(req.params.id);
-  // fetch all users from db
+  // fetch a user of id userid from db
   myconn.query(
     `SELECT * FROM users WHERE id =${userid}`,
     (error, queryResult) => {
       if (error) {
         res.send(`A databse Error occured: ${error.message}`);
-      } else {
-        //   res.send(`A list of all users: ${JSON.stringify(queryResult)} `);
-        //   res.json(queryResult);
+      } else {       
         res.render("details.ejs", { user: queryResult[0] });
       }
     }
