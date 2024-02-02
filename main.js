@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 // app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true })); // to decode the request and get the body/data out of the request.data could be in all formats(image,video e.t.c)
+app.use(express.static("publicFolder"));
 
 const mysql = require("mysql");
 const myconn = mysql.createConnection({
@@ -49,7 +50,7 @@ app.get("/users/:id", (req, res) => {
     (error, queryResult) => {
       if (error) {
         res.send(`A databse Error occured: ${error.message}`);
-      } else {       
+      } else {
         res.render("details.ejs", { user: queryResult[0] });
       }
     }
@@ -87,6 +88,36 @@ app.post("/delete/:userid", (req, res) => {
       res.redirect("/users");
     }
   });
+});
+
+app.get("/edituser", (req, res) => {
+  console.log(req.query.userid);
+  myconn.query(
+    `SELECT * FROM users WHERE id = ${Number(req.query.userid)}`,
+    (err, data) => {
+      if (err) {
+        res.status(500).send("Error while fetching this page");
+      } else {
+        res.render("edit.ejs", { user: data[0] });
+      }
+    }
+  );
+});
+app.post("/updateuser", (req, res) => {
+  console.log(req.body);
+  // update statement
+  myconn.query(
+    `UPDATE users SET names='${req.body.fname}',age=${Number(
+      req.body.age
+    )}, gender='${req.body.gender}' WHERE id=${Number(req.body.userid)}`,
+    (err) => {
+      if (err) {
+        res.status(500).send("Error While update user");
+      } else {
+        res.redirect(`/users/${Number(req.body.userid)}`);
+      }
+    }
+  );
 });
 
 app.listen(3003, () => console.log("App running on port 3003"));

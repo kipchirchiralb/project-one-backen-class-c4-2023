@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit User</title>
+  </head>
+  <body>
+    <%- include("header.ejs")%>
+    <h1>Edit user Details</h1>
+    <form action="/updateuser" method="post">
+      <input type="hidden" name="userid" value="<%=user.id%>" />
+      <div>
+        <label for="fname">FullName</label>
+        <input type="text" name="fname" id="fname" value="<%=user.names%>" />
+      </div>
+      <div>
+        <label for="age">Age</label>
+        <input type="number" name="age" id="age" value="<%=user.age%>" />
+      </div>
+      <div>
+        <label for="gender">Gender</label>
+        <% if(user.gender === "male"){ %>
+        <input type="radio" name="gender" id="male" value="male" checked />
+        <label for="male">Male</label>
+        <input type="radio" name="gender" id="female" value="female" />
+        <label for="female">Female</label>
+        <% }else{ %>
+        <input type="radio" name="gender" id="male" value="male" />
+        <label for="male">Male</label>
+        <input type="radio" name="gender" id="female" value="female" checked />
+        <label for="female">Female</label>
+        <% } %>
+      </div>
+      <div>
+        <button type="submit">Update User</button>
+      </div>
+    </form>
+  </body>
+</html>
